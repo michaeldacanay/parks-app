@@ -11,11 +11,13 @@ struct ContentView: View {
     @State private var parks: [Park] = []
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView {
+            LazyVStack {
+                ForEach(parks) { park in
+                    Text(park.name)
+                        .font(.title)
+                }
+            }
         }
         .padding()
         .onAppear(perform: { // <-- Add onAppear modifier
