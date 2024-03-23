@@ -26,3 +26,12 @@ struct ParkImage: Codable {
     let caption: String
     let url: String
 }
+
+extension Park {
+    static var mocked: Park {
+        let jsonUrl = Bundle.main.url(forResource: "park_mock", withExtension: "json")!
+        let data = try! Data(contentsOf: jsonUrl)
+        let park = try! JSONDecoder().decode(Park.self, from: data)
+        return park
+    }
+} 
