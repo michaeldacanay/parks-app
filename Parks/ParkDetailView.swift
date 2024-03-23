@@ -58,6 +58,7 @@ struct ParkDetailView: View {
                 .padding()
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

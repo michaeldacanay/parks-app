@@ -11,12 +11,20 @@ struct ContentView: View {
     @State private var parks: [Park] = []
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(parks) { park in
-                    ParkRow(park: park)
+        NavigationStack { // <-- Wrap the top level view in a NavigationStack
+            ScrollView {
+                LazyVStack {
+                    ForEach(parks) { park in
+                        NavigationLink(value: park) { // <-- Pass in the park associated with the park row as the value
+                            ParkRow(park: park) // <-- The park row serves as the label for the NavigationLink
+                        }
+                    }
                 }
             }
+            .navigationDestination(for: Park.self) { park in // <-- Add a navigationDestination that reacts to any Park type sent from a Navigation Link
+                ParkDetailView(park: park) // <-- Create a ParkDetailView for the destination, passing in the park
+            }
+            .navigationTitle("National Parks") // <-- Add a navigation bar title
         }
         .padding()
         .onAppear(perform: { // <-- Add onAppear modifier

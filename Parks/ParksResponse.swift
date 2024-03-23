@@ -11,7 +11,8 @@ struct ParksResponse: Codable {
     let data: [Park]
 }
 
-struct Park: Codable, Identifiable {
+struct Park: Codable, Identifiable, Hashable {
+    
     let id: String
     let fullName: String
     let description: String
@@ -19,9 +20,13 @@ struct Park: Codable, Identifiable {
     let longitude: String
     let images: [ParkImage]
     let name: String
+    
+    func hash(into hasher: inout Hasher) { // <-- Add required hash function
+        hasher.combine(id)
+    }
 }
 
-struct ParkImage: Codable, Identifiable {
+struct ParkImage: Codable, Identifiable, Hashable {
     let title: String
     let caption: String
     let url: String
